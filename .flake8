@@ -1,0 +1,5 @@
+[flake8]
+# As recommended by Black - https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#flake8
+max-line-length = 88
+select = C,E,F,W,B,B950
+extend-ignore = E203, E501, E704

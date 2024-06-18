@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "python-poetry-boilerplate"
+version = "0.1.0"
+description = "Python Poetry Boilerplate"
+authors = ["face0b1101 <6190957+face0b1101@users.noreply.github.com>"]
+maintainers = ["face0b1101 <6190957+face0b1101@users.noreply.github.com>"]
+readme = "README.md"
+homepage = "https://github.com/face0b1101/python-poetry-boilerplate"
+repository = "https://github.com/face0b1101/python-poetry-boilerplate"
+documentation = "https://github.com/face0b1101/python-poetry-boilerplate"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-decouple = "^3.8"
+unipath = "^1.1"
+rich = "^13.7.0"
+tqdm = "^4.66.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.2.0"
+flake8 = "^7.0.0"
+jupyter = "^1.0.0"
+pytest = "^7.4.4"
+isort = "^5.13.2"
+tox = "^4.11.4"
+flake8-bugbear = "^24.2.6"
+pre-commit = "^3.7.0"
+
+[tool.black]
+line-length = 88
+
+[tool.flake8]
+ignore = ["E203", "E266", "E501", "W503", "F403", "F401"]
+select = ["B", "C", "E", "F", "W", "T4", "B9"]
+max-line-length = 89
+max-complexity = 18
+
+[tool.isort]
+profile = "black" # make it compatible with black
+
+[tool.poetry.scripts]
+python-poetry-boilerplate = 'python_poetry_boilerplate.main:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

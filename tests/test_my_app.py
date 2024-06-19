@@ -4,7 +4,6 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from get_es_index_sizes.config.env import VERSION
 from get_es_index_sizes.main import (
     bytes_to_gibibytes,
     bytes_to_gigabytes,
@@ -15,9 +14,11 @@ from get_es_index_sizes.main import (
     write_output,
 )
 
+from get_es_index_sizes import __version__
 
 def test_version():
-    assert VERSION == "0.1.0"
+    assert isinstance(__version__, str)
+    assert __version__ == '0.1.0'
 
 
 def test_create_es_client_url():

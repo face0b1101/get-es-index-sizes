@@ -6,7 +6,6 @@ import logging
 import re
 from getpass import getpass
 
-import typer
 from elasticsearch import Elasticsearch
 from rich import print
 from rich.logging import RichHandler

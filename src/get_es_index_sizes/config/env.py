@@ -7,3 +7,4 @@ BASE_DIR = Path(__file__).parent
 
 LOG_LEVEL = config("LOG_LEVEL", cast=str, default="WARNING")
 DEFAULT_TZ = config("TZ", cast=str, default="Europe/London")
+VERSION = config("VERSION", cast=str)

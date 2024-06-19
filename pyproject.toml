@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "python-poetry-boilerplate"
+name = "get-es-index-sizes"
 version = "0.1.0"
-description = "Python Poetry Boilerplate"
+description = "Get Elasticsearch index sizes in CSV format"
 authors = ["face0b1101 <6190957+face0b1101@users.noreply.github.com>"]
 maintainers = ["face0b1101 <6190957+face0b1101@users.noreply.github.com>"]
 readme = "README.md"
-homepage = "https://github.com/face0b1101/python-poetry-boilerplate"
-repository = "https://github.com/face0b1101/python-poetry-boilerplate"
-documentation = "https://github.com/face0b1101/python-poetry-boilerplate"
+homepage = "https://github.com/face0b1101/get-es-index-sizes"
+repository = "https://github.com/face0b1101/get-es-index-sizes"
+documentation = "https://github.com/face0b1101/get-es-index-sizes"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -15,6 +15,8 @@ python-decouple = "^3.8"
 unipath = "^1.1"
 rich = "^13.7.0"
 tqdm = "^4.66.1"
+elasticsearch = "^8.14.0"
+typer = "^0.12.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.2.0"
@@ -25,6 +27,7 @@ isort = "^5.13.2"
 tox = "^4.11.4"
 flake8-bugbear = "^24.2.6"
 pre-commit = "^3.7.0"
+nbconvert = "^7.16.4"
 
 [tool.black]
 line-length = 88
@@ -39,7 +42,7 @@ max-complexity = 18
 profile = "black" # make it compatible with black
 
 [tool.poetry.scripts]
-python-poetry-boilerplate = 'python_poetry_boilerplate.main:main'
+get-es-index-sizes = 'get_es_index_sizes.main:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

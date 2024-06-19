@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   my-container:
-    image: face0b1101/python_poetry_boilerplate:0.1
+    image: face0b1101/get-es-index-sizes:0.1
     build:
       context: .
       dockerfile: Dockerfile

@@ -1,4 +1,4 @@
-IMAGE := myimage
+IMAGE := face0b1101/get-es-index-sizes
 GIT_ID := $(shell git rev-parse --short HEAD)
 
 docker-build:

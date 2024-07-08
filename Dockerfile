@@ -24,6 +24,9 @@ ENV VIRTUAL_ENV=/app/.venv \
 
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
-COPY src/python_poetry_boilerplate ./python_poetry_boilerplate
+# Create /output directory
+RUN mkdir /output
 
-ENTRYPOINT ["python", "-m", "python_poetry_boilerplate.main"]
+COPY src/get_es_index_sizes ./get_es_index_sizes
+
+CMD ["python", "-m", "get_es_index_sizes.main"]

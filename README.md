@@ -38,8 +38,6 @@ A little tool for quickly fetching ES index sizes using the Elasticsearch API.
 
     ```bash
     poetry run pytest
-    ```
-
     If the tests run without error then you have configured your project and you're ready to get coding.
 
 3. Enable git pre-commit hooks
@@ -57,22 +55,16 @@ You can also run the app using [Docker](https://docs.docker.com/get-docker/).
 
 ## Building the container
 
-First, build the docker container. There is a Dockerfile in the root of the repository. You can use `docker` or `docker-compose`:
+First, build the docker container using the provided Makefile commands:
 
 ```sh
-# docker
-DOCKER_BUILDKIT=1 docker build -f Dockerfile --target runtime -t get_es_index_sizes:0.1 .
-
-# docker-compose
-docker-compose build
+# Build the Docker container
+make docker-build
 ```
 
 Once the container is built, you can run it with:
 
 ```shell
-# docker
-docker run --rm --name my-container --env-file .env get_es_index_sizes:0.1
-
-# docker-compose
-docker-compose up
+# Run the Docker container
+make docker-run
 ```

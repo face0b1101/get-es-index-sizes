@@ -11,4 +11,4 @@ docker-deploy:
 	docker-build docker-push
 
 docker-run:
-	docker run --rm --name my-container --env-file .env ${IMAGE}:${GIT_ID}
+	docker run -it --rm --name get-es-index-sizes --env-file .env -v "$(PWD)/output:/output" ${IMAGE}:${GIT_ID}

@@ -1,6 +1,5 @@
-version: "3.8"
 services:
-  my-container:
+  get-es-index-sizes:
     image: face0b1101/get-es-index-sizes:0.1
     build:
       context: .
@@ -8,7 +7,9 @@ services:
       target: runtime
       args:
         DOCKER_BUILDKIT: 1
-    container_name: my-container
+    container_name: get-es-index-sizes
+    volumes:
+      - ./output:/output
     env_file:
       - .env
     restart: unless-stopped

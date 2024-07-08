@@ -60,7 +60,7 @@ A little tool for quickly fetching ES index sizes using the Elasticsearch API.
 
 You can also run the app using [Docker](https://docs.docker.com/get-docker/).
 
-## Building the container
+### Building the container
 
 First, build the docker container using the provided Makefile commands:
 
@@ -68,6 +68,8 @@ First, build the docker container using the provided Makefile commands:
 # Build the Docker container
 make docker-build
 ```
+
+### Running the container
 
 Once the container is built, you can run it with:
 

@@ -40,7 +40,7 @@ A little tool for quickly fetching ES index sizes using the Elasticsearch API.
     poetry run pytest
     ```
 
-    If the tests run without error then you have configured your project and you're ready to get coding.
+    If the tests run without error then you have configured your project and you're ready to run.
 
 3. Enable git pre-commit hooks
 

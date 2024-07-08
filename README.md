@@ -38,9 +38,16 @@ A little tool for quickly fetching ES index sizes using the Elasticsearch API.
 
     ```bash
     poetry run pytest
+    ```
+
     If the tests run without error then you have configured your project and you're ready to get coding.
 
 3. Enable git pre-commit hooks
+
+   ```bash
+   poetry run pre-commit install
+   ```
+
    If you are planning on further development these may be useful.
 
 4. Run the app

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 import csv
 import logging
@@ -10,7 +9,16 @@ from elasticsearch import Elasticsearch
 from rich import print
 from rich.logging import RichHandler
 
-from get_es_index_sizes.config.env import DEFAULT_TZ, LOG_LEVEL
+from get_es_index_sizes.config.env import (
+    DEFAULT_TZ,
+    ES_API_KEY,
+    ES_CLOUD_ID,
+    ES_PASS,
+    ES_URL,
+    ES_USER,
+    LOG_LEVEL,
+    OUTPUT_DIR,
+)
 
 
 def create_es_client(
@@ -178,6 +186,59 @@ def write_output(data_list: list, output_csv: str = "output.csv"):
             writer.writerow(row)
 
 
+def elasticsearch_location() -> tuple:
+    """
+    Prompts the user to choose an Elasticsearch location and returns the chosen location.
+
+    Returns:
+        tuple: A tuple containing the Elasticsearch Cloud ID and URL, based on the user's choice.
+    """
+
+    es_id = None
+    es_url = None
+
+    es_loc = input("Choose Elasticsearch Location (1: Cloud ID, 2: URL): ")
+
+    if es_loc == "1":
+        es_id = input("Enter Elasticsearch Cloud ID: ")
+    elif es_loc == "2":
+        es_url = input("Enter Elasticsearch URL: ")
+    else:
+        print("Invalid Elasticsearch Location chosen.")
+
+    return es_id, es_url
+
+
+def elasticsearch_auth() -> tuple:
+    """
+    Prompts the user to choose an authentication method for Elasticsearch.
+
+    Returns:
+        tuple: A tuple containing the API key and authentication credentials.
+    """
+
+    api_key = None
+    auth = None
+
+    # Prompt the user to choose the authentication method.
+    auth_method = input(
+        "Choose authentication method (1: API key, 2: username/password): "
+    )
+
+    if auth_method == "1":
+        api_key = getpass("Enter Elasticsearch API key: ")
+
+    elif auth_method == "2":
+        username = input("Enter Elasticsearch username: ")
+        password = getpass("Enter Elasticsearch password: ")
+        auth = (username, password)
+
+    else:
+        print("Invalid authentication method chosen.")
+
+    return api_key, auth
+
+
 def main():
     """Main function of the script.
 
@@ -206,47 +267,40 @@ def main():
     logging.debug(f"LOG_LEVEL: {logging.getLevelName(logging.root.level)}")
     logging.debug(f"DEFAULT_TZ: {DEFAULT_TZ}")
 
-    # prompt user to choose elastic cloud or elasticsearch URL
-    es_loc = input("Choose Elasticsearch Location (1: Cloud ID, 2: URL): ")
-
     es_id = None
     es_url = None
-
-    if es_loc == "1":
-        es_id = input("Enter Elasticsearch Cloud ID: ")
-
-    elif es_loc == "2":
-        es_url = input("Enter Elasticsearch URL: ")
-
-    else:
-        print("Invalid Elasticsearch Location chosen.")
-        return
-
-    # Prompt the user to choose the authentication method.
-    auth_method = input(
-        "Choose authentication method (1: API key, 2: username/password): "
-    )
 
     auth = None
     api_key = None
 
-    if auth_method == "1":
-        api_key = getpass("Enter Elasticsearch API key: ")
+    # check for environment variables
+    if ES_CLOUD_ID is not None and ES_API_KEY is not None:
+        logging.debug("ES_CLOUD_ID and ES_API_KEY are set in env file.")
+        use_env_vars = input(
+            "Elastic Cloud ID and API Key environment variables detected \n"
+            "Elastic Cloud ID is favoured over URLs \n"
+            "Do you want to use the detected variables (y/n)?"
+        )
+        if use_env_vars.lower() == "y":
+            es_id = ES_CLOUD_ID
+            api_key = ES_API_KEY
 
-    elif auth_method == "2":
-        username = input("Enter Elasticsearch username: ")
-        password = getpass("Enter Elasticsearch password: ")
-        auth = (username, password)
+        else:
+            es_id, es_url = elasticsearch_location()
+            api_key, auth = elasticsearch_auth()
 
     else:
-        print("Invalid authentication method chosen.")
-        return
+        logging.debug("ES_CLOUD_ID or ES_API_KEY is not set in env file.")
 
     output_csv = (
-        input("Enter output CSV file name (default: output.csv): ") or "output.csv"
+        input("Enter output CSV file name (default: output/output.csv): ")
+        or f"{OUTPUT_DIR}/output.csv"
     )
 
-    print(f"Output CSV file: {output_csv}")
+    print(f"\nOutput CSV file: {output_csv}")
+
+    logging.debug(f"ES_ID: {es_id}")
+    logging.debug(f"ES_URL: {es_url}")
 
     es_client = create_es_client(es_url=es_url, es_id=es_id, api_key=api_key, auth=auth)
 
